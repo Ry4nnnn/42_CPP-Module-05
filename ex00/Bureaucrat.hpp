@@ -20,6 +20,8 @@ class Bureaucrat {
 		void	increamentGrade();
 		void	decreamentGrade();
 
+		class GradeTooHighException : public std::exception
+
 }
 
 #endif

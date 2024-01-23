@@ -12,3 +12,4 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name) {
 	this->_grade = grade;
 }
 
+
