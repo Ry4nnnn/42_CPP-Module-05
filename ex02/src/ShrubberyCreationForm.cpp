@@ -29,7 +29,42 @@ std::string	ShrubberyCreationForm::getTarget() const {
 void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
 	if (!this->getSigned())
 		throw Form::GradeNotSignedException();
-	else if (executor.getGrade())
-	
+	else if (executor.getGrade() > this->getGradeToExec())
+		throw Form::GradeTooLowException();
+	else
+	{
+		std::ofstream outfile(this->_target + "_shrubbery");
+		outfile << "                                              .\n";
+		outfile << "                                   .         ;\n";
+		outfile << "      .              .              ;%     ;;\n";
+		outfile << "        ,           ,                :;%  %;\n";
+		outfile << "         :         ;                   :;%;'     .,\n";
+		outfile << ",.        %;     %;            ;        %;'    ,;\n";
+		outfile << "  ;       ;%;  %%;        ,     %;    ;%;    ,%'\n";
+		outfile << "   %;       %;%;      ,  ;       %;  ;%;   ,%;'\n";
+		outfile << "    ;%;      %;        ;%;        % ;%;  ,%;'\n";
+		outfile << "     `%;.     ;%;     %;'         `;%%;.%;'\n";
+		outfile << "      `:;%.    ;%%. %@;        %; ;@%;%'\n";
+		outfile << "         `:%;.  :;bd%;          %;@%;'\n";
+		outfile << "           `@%:.  :;%.         ;@@%;'\n";
+		outfile << "             `@%.  `;@%.      ;@@%;\n";
+		outfile << "               `@%%. `@%%    ;@@%;\n";
+		outfile << "                 ;@%. :@%%  %@@%;\n";
+		outfile << "                   %@bd%%%bd%%:;\n";
+		outfile << "                     #@%%%%%:;;\n";
+		outfile << "                     %@@%%%::;\n";
+		outfile << "                     %@@@%(o);  . '\n";
+		outfile << "                     %@@@o%;:(.,'\n";
+		outfile << "                 `.. %@@@o%::;\n";
+		outfile << "                    `)@@@o%::;\n";
+		outfile << "                     %@@(o)::;\n";
+		outfile << "                    .%@@@@%::;\n";
+		outfile << "                    ;%@@@@%::;.\n";
+		outfile << "                   ;%@@@@%%:;;;.\n";
+		outfile << "               ...;%@@@@@%%:;;;;,..\n";
+		outfile.close();
+		std::cout << this->_target << "_shrubbery file has been created." << std::endl;
+	}
+
 
 }

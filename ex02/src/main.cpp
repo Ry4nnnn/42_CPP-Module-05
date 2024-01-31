@@ -1,50 +1,46 @@
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 int main(void)
 {
-	std::string name;
-	int grade;
-	int symbol;
-	std::string form_name;
-	int g_sign;
-	int g_exec;
-
 	while (1)
 	{
-		std::cout << "---------- Bureaucrat Info----------" << std::endl;
-		std::cout << "Enter name: ";
-		std::cin >> name;
-		std::cout << "Enter grade: ";
-		std::cin >> grade;
-		std::cout << "---------- Form Info ----------" << std::endl;
-		std::cout << "Enter name: ";
-		std::cin >> form_name;
-		std::cout << "Enter grade for sign: ";
-		std::cin >> g_sign;
-		std::cout << "Enter grade for execute: ";
-		std::cin >> g_exec;
-		try{
-			Bureaucrat user(name, grade);
-			std::cout << user << std::endl;
-			Form form(form_name, g_sign, g_exec);
-			std::cout << form;
-			try {
-				std::cout << "Enter 1 to sign: ";
-				std::cin >> symbol;
-				if (symbol == 1)
-					user.signForm(form);
+		try {
+			std::string	name;
+			int			grade;
+			Form		*form[3] = {new PresidentialPardonForm, new RobotomyRequestForm, new ShrubberyCreationForm};
+
+			std::cout << "----------------Create Bureaucrat----------------" << std::endl;
+			std::cout << "Enter name: ";
+			std::cin >> name;
+			std::cout << "Enter grade: ";
+			std::cin >> grade;
+			Bureaucrat *bureaucrat = new Bureaucrat(name, grade);
+			std::cout << *bureaucrat << std::endl;
+
+			std::cout << "----------------Sign Form Section----------------" << std::endl;
+			int i;
+			std::cout << "Enter 0 for Presidential Pardon Form" << std::endl;
+			std::cout << "Enter 1 for Robotomy Request Form" << std::endl;
+			std::cout << "Enter 2 for Shrubbery Creation Form" << std::endl;
+			std::cout << "Enter: ";
+			std::cin >> i;
+			if (i >= 0 && i < 3)
+			bureaucrat->signForm(*form[i]);
+			std::cout << *form[i] << std::endl;
+			std::cout << "----------------Execute Form Section----------------" << std::endl;
+			if (i >= 0 && i < 3)
+				bureaucrat->executeForm(*form[i]);
+			delete bureaucrat;
+			for (int j = 0; j < 3; j++) {
+				delete form[j];
 			}
-			catch (std::exception & e)
-			{
-				std::cout << e.what() << std::endl;
-				continue;
-			}
-			std::cout << form;
 		}
-		catch (std::exception & e)
-		{
-			std::cout << e.what() << std::endl;
-			continue;
+		catch (const std::exception &e) {
+			std::cerr << e.what() << std::endl;
 		}
 	}
 }
